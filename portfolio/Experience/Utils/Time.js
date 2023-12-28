@@ -1,15 +1,16 @@
-export default class Sizes {
+export default class Time {
   constructor() {
-    this.width = window.innerWidth;
-    this.height = window.innerHeight;
-    this.aspect = this.width / this.height;
-    this.pixelRatio = math.min(window.devicePixelRatio, 2)
+    this.start = Date.now();
+    this.current = this.start;
+    this.elapsed = 0;
+    this.delta = 16;
 
-    window.addEventListener("resize", () => {
-      this.width = window.innerWidth;
-      this.height = window.innerHeight;
-      this.aspect = this.width / this.height;
-      this.pixelRatio = math.min(window.devicePixelRatio, 2)
-    })
+    this.update();
+  }
+
+  update() {
+    const currentTime = Date.now();
+    this.delta = currentTime - this.current;
+    window.requestAnimationFrame(() => this.update);
   }
 }
